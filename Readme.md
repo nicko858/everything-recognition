@@ -4,7 +4,7 @@
 Под капотом используется библиотека [opencv](https://pypi.org/project/opencv-python/).
 Образы распознаются методом [каскад хаара (Haar Cascade)](https://docs.opencv.org/3.4.3/d7/d8b/tutorial_py_face_detection.html) по предварительно обученной модели `haarcascades`.
 
-## Описание программ
+## Состав программы
 
 Программа состоит из 2 скриптов и директории с моделью(`haarcascades`):
 
@@ -26,3 +26,34 @@
 Распознанные образы будут выделяться цветными прямоугольниками в случае, если в параметрах каскада(`config.py`) указана необходимости его отрисовки(boolean переменная `draw`=`True`).
 
 
+## Как установить
+
+```bash
+    git clone https://github.com/nicko858/everything-recognition
+    cd everything-recognition
+    python3 -m venv venv
+    . venv/bin/activate
+    pip install -r requirements.txt
+```
+
+## Как настроить
+
+В конфигируционном файле `config.py` для любого из распознаваемых объектов можно задать цвет выделения и возможность отрисовки. Помимо представленных образов, можно добавить дополнительный. Например мы хотим, чтобы программа распознала Российский номерной знак. В файле `config.py`, в словарь `CASCADES`, необходимо добавить следующую запись:
+
+```python
+    CASCADES = {
+    .....
+    "Russian plate number": {
+        "path": "haarcascades/faces/haarcascade_russian_plate_number.xml",
+        "color": (255, 0, 0),
+        "draw": True
+    },
+```
+
+Теперь, в случае обнаружения номерного знака, программа выделит его красным прямоугольником
+
+## Как запустить
+
+```bash
+    python run.py
+```
